@@ -1,5 +1,11 @@
 # Project exclude paths
+# Comment Test
 /venv/
+/staging-and-development/
+.vscode
+.ipynb_checkpoints
+*.py[cod]
 *.pptx
 *.pdf
 *.png
+*.xslx
