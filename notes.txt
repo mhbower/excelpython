@@ -1,0 +1,58 @@
+Extract dates   df['Month'] = df['Date'].dt.strftime('%B')
+
+Conditionally add rows  
+
+def get_complaint_details(df, month, employees):
+    '''Gets the complaint details if the employee had more than three complaints in a month'''
+    # Create an empty list to hold our DataFrames
+    frames = []
+    # Loop through our employee list with our conditions
+    for employee in employees:
+        complaints_received = df.loc[(df['Employee'] == employee) & (df['Month'] == month)]
+        # IF there were three or more complaints:
+        if len(complaints_received) >= 3:
+            frames.append(pd.DataFrame(complaints_received))
+    df = pd.concat(frames, ignore_index=True)
+    
+    return df
+
+
+Read all sheets in at once as a dictionary
+frames = pd.read_excel(accounting_file, sheet_name=None)
+angela_df = frames['Angela']
+angela_df.info()
+
+
+Get the right section to conditionally format
+
+# Set the conditional formats
+first_row = 1 # The first row where we have data
+first_column = 4 # The balance column
+last_row = len(customer_summary.index) # The length of the DataFrame
+last_column = 4 # because we only want the formatting applied to the balance column
+conditions = {
+    'type': 'cell', # Because we want to apply the formatting to each individual cell
+    'criteria': '<', # for less than
+    'value': 0,
+    'format': red_color,
+}
+
+worksheet.conditional_format(first_row,
+                            first_column,
+                            last_row,
+                            last_column,
+                            conditions,)
+
+
+Appending worksheets could be a good more intermediate one to include.  
+
+
+
+This part about making a bar chart in the final report looks better than how you do it. 
+
+
+Up- and down-sampling 
+
+Ch-7 of Python for Excel
+
+Ch-8   These are not really editing files.  
